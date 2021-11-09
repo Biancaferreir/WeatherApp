@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = WeatherViewModel()
+    
     var body: some View {
         VStack {
-            Image("sun")
+            Image(uiImage: viewModel.forecastIcon)
                 .resizable()
                 .frame(width: 300, height: 300, alignment: .center)
                 .scaledToFit()
                 .padding(.bottom, 5.0)
             
-            Text("Nome da Cidade")
+            Text(viewModel.cityName)
                 .font(Font.system(size: 24))
                 .padding(.bottom, 10.0)
-            
+        
             HStack {
                 Text("Dia da Semana")
                 Text("|")
@@ -27,10 +29,19 @@ struct ContentView: View {
                 Text("|")
                 Text("hora")
             }
+            .font(Font.system(size: 14))
             .padding(.bottom, 10.0)
             
-            Text("20º")
-                .font(Font.system(size: 80))
+            HStack {
+                Group {
+                    Text("\(viewModel.tempMin)º")
+                        .font(Font.system(size: 40))
+                    Text("\(viewModel.temperature)º")
+                        .font(Font.system(size: 60))
+                    Text("\(viewModel.tempMax)º")
+                        .font(Font.system(size: 40))
+                }
+            }.scaledToFit()
             
             HStack {
                 Group {
